@@ -2,8 +2,7 @@ package pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.assertj.core.api.SoftAssertions;
-import utils.Driver;
+
 
 import static com.codeborne.selenide.Selenide.$;
 

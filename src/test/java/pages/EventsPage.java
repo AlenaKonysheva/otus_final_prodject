@@ -2,10 +2,6 @@ package pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import javafx.beans.binding.Bindings;
-import org.apache.commons.lang3.ArrayUtils;
-import org.assertj.core.api.SoftAssertions;
-
 import static com.codeborne.selenide.Selenide.*;
 
 
