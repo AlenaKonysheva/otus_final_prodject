@@ -53,11 +53,19 @@ public class SampleTest extends MainPage {
         logger.info("выбраны прошедшие мероприятия");
     }
 
+    @Тогда("на странице отображаются карточки прошедших мероприятий")
+    public void displayOfPastEvents() {
+        mainPage
+                .clickPastEventsButton();
+        logger.info("натажа кнопка прошедших мероприятий");
+    }
+
+
     @И("выполнена проверка информация о мероприятии в карточке")
     public void checkInformationCard() {
 
         mainPage
-                .selectionOfTheEventCard()      //выбор какую карту проверять
+                .selectionOfTheFirstEventCard()      //выбор какую карту проверять
                 .checkLanguage()                 //проверка что графа "язык" не пуста
                 .checkNameOfEvents()             //проверка что графа "название мероприятия" не пуста
                 .checkDateOfEvents()             //проверка что графа "дата мероприятия" в прошлом
