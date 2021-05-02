@@ -3,8 +3,6 @@ package tests;
 
 import com.codeborne.selenide.Selenide;
 import config.Resources;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Пусть;
@@ -17,7 +15,7 @@ import org.openqa.selenium.WebDriver;
 import pages.EventsPage;
 import pages.MainPage;
 import org.junit.jupiter.api.Assertions;
-import utils.Driver;
+
 
 
 @Epic("Тесты на страницу мероприятий сайта epam.com")
@@ -99,13 +97,4 @@ public class SampleTest extends MainPage {
     }
 
 
-    @Before()
-    public void setUpDriver() {
-        Driver.setUp();
-    }
-
-    @After()
-    public void setDownDriver() {
-        Driver.setDown();
-    }
 }
