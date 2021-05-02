@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.ru.И;
+import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Пусть;
 import io.cucumber.java.ru.Тогда;
 import pages.EventsPage;
@@ -40,6 +41,14 @@ public class SampleTest extends MainPage {
                 String.valueOf(eventsPage.getEventsCardsCount()));
         logger.info("Выполнена проверка количества карточек, оно равно счетчику на кнопке");
     }
+
+
+    @Когда("пользователь нажимает на Past Events")
+    public void clickPastEvents() {
+       //mainPage
+        //        .clickPastEventsLink();
+    }
+
 
     @Before()
     public void setUpDriver() {

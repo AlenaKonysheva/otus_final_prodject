@@ -8,11 +8,12 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class MainPage extends EventsPage {
 
-    private final SelenideElement eventsLink = $("li.events-icon a");
-    private final SelenideElement acceptCookiesBtn = $("button#onetrust-accept-btn-handler");
+    //private final SelenideElement eventsLink = $("li.events-icon a");
+    private final SelenideElement eventsLink = $(".events-icon");
+    private final SelenideElement acceptCookiesButton = $("id#onetrust-accept-btn-handler");
 
     public MainPage acceptCookie() {
-        acceptCookiesBtn
+        acceptCookiesButton
                 .shouldBe(Condition.visible)
                 .click();
         logger.info("Нажата согласие с cookies во всплывающем окне");
