@@ -1,8 +1,7 @@
 package tests;
 
-import com.codeborne.selenide.Configuration;
+
 import com.codeborne.selenide.Selenide;
-import config.Config;
 import config.Resources;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -11,6 +10,7 @@ import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Пусть;
 import io.cucumber.java.ru.Тогда;
 import org.aeonbits.owner.ConfigFactory;
+import org.junit.Assert;
 import pages.EventsPage;
 import pages.MainPage;
 
@@ -64,14 +64,25 @@ public class SampleTest extends MainPage {
     @И("выполнена проверка информация о мероприятии в карточке")
     public void checkInformationCard() {
 
-        mainPage
-                .selectionOfTheFirstEventCard()      //выбор какую карту проверять
-                .checkLanguage()                 //проверка что графа "язык" не пуста
-                .checkNameOfEvents()             //проверка что графа "название мероприятия" не пуста
-                .checkDateOfEvents()             //проверка что графа "дата мероприятия" в прошлом
-                .checkInformationOfREgistration()//проверка что графа  "информация о регистрации" содержит текст Registration closed
-                .checkListOfSpikers();           // проверка что графа  " список спикеров" не пуста
-        logger.info("выполнена проверка информация о мероприятии в карточке");
+        eventsPage.selectionOfTheFirstEventCard(); //выбор первой карточки для проверки
+        eventsPage.checkLanguage();    //проверка, что графа "язык" не пуста
+        Assert.assertNotNull(checkLanguage());
+        logger.info("выполнена проверка указания языка мероприятия в карточке о мероприятии");
+
+
+        eventsPage.checkNameOfEvent();//проверка, что графа "название мероприятия" не пуста
+        Assert.assertNotNull(checkNameOfEvent());
+        logger.info("выполнена проверка наличия названия мероприятия в карточке о мероприятии");
+
+        eventsPage.checkDateOfEvent(); //проверка, что графа "дата мероприятия" не пуста
+        Assert.assertNotNull(checkDateOfEvent());
+        logger.info("выполнена проверка наличия названия мероприятия в карточке о мероприятии");
+
+        eventsPage.checkInformationOfRegistration();//проверка, что графа 'Watch recording' присутствует
+        String actualLink = checkInformationOfRegistration();
+        String expectedLink = "Watch recording";
+        Assert.assertEquals(actualLink,expectedLink);
+        logger.info("выполнена проверка наличия записи мероприятия в карточке о мероприятии");
 
     }
 
