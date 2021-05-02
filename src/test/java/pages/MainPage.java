@@ -9,8 +9,9 @@ import static com.codeborne.selenide.Selenide.$;
 public class MainPage extends EventsPage {
 
     //private final SelenideElement eventsLink = $("li.events-icon a");
-    private final SelenideElement eventsLink = $(".events-icon");
-    private final SelenideElement acceptCookiesButton = $("id#onetrust-accept-btn-handler");
+    private final SelenideElement eventsLink = $("div#app > header > div > div > ul > li:nth-of-type(2) > a");
+    private final SelenideElement acceptCookiesButton = $("button#onetrust-accept-btn-handler");
+    private final SelenideElement pastEventsButton = $(".evnt-tab-text desktop");
 
     public MainPage acceptCookie() {
         acceptCookiesButton
@@ -26,9 +27,14 @@ public class MainPage extends EventsPage {
         return this;
     }
 
-    public MainPage clickUpcomingEvents(){
+    public MainPage clickUpcomingEvents() {
         eventsLink.click();
         return this;
     }
 
+    public MainPage clickPastEventsButton() {
+        pastEventsButton.click();
+        return this;
+
+    }
 }

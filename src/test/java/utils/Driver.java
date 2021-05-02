@@ -16,12 +16,11 @@ public class Driver {
     public static Resources cfg = ConfigFactory.create(Resources.class);
 
     public static void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.get(cfg.urlEpam());
-        driver.manage().window().maximize();
-        logger.info("Драйвер поднят");
+    //    WebDriverManager.chromedriver().setup();
+     //   driver = new ChromeDriver();
+     //   driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+     //   driver.manage().window().maximize();
+     //   logger.info("Драйвер поднят");
     }
 
 
