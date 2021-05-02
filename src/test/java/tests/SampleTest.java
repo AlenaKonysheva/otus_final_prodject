@@ -24,7 +24,7 @@ public class SampleTest extends MainPage {
 
     @Пусть("пользователь заходит на сайт и переходит на вкладку events")
     public void entry() {
-       Selenide.open(cfg.urlEpam());
+        Selenide.open(cfg.urlEpam());
         mainPage
                 .acceptCookie()
                 .openEvents();
@@ -48,9 +48,23 @@ public class SampleTest extends MainPage {
 
     @Когда("пользователь нажимает на Past Events")
     public void clickPastEvents() {
-       //mainPage
-        //        .clickPastEventsButton();
+        mainPage
+                .clickPastEventsButton();
         logger.info("выбраны прошедшие мероприятия");
+    }
+
+    @И("выполнена проверка информация о мероприятии в карточке")
+    public void checkInformationCard() {
+
+        mainPage
+                .selectionOfTheEventCard()      //выбор какую карту проверять
+                .checkLanguage()                 //проверка что графа "язык" не пуста
+                .checkNameOfEvents()             //проверка что графа "название мероприятия" не пуста
+                .checkDateOfEvents()             //проверка что графа "дата мероприятия" в прошлом
+                .checkInformationOfREgistration()//проверка что графа  "информация о регистрации" содержит текст Registration closed
+                .checkListOfSpikers();           // проверка что графа  " список спикеров" не пуста
+        logger.info("выполнена проверка информация о мероприятии в карточке");
+
     }
 
 
