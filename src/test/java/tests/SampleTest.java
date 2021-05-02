@@ -9,18 +9,25 @@ import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Пусть;
 import io.cucumber.java.ru.Тогда;
+import io.qameta.allure.Epic;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.Assert;
+import org.junit.jupiter.api.DisplayName;
+import org.openqa.selenium.WebDriver;
 import pages.EventsPage;
 import pages.MainPage;
-
 import org.junit.jupiter.api.Assertions;
 import utils.Driver;
 
+
+@Epic("Тесты на страницу мероприятий сайта epam.com")
+@DisplayName("Тесты на страницу мероприятий сайта epam.com")
 public class SampleTest extends MainPage {
     private MainPage mainPage = new MainPage();
     private EventsPage eventsPage = new EventsPage();
     public static Resources cfg = ConfigFactory.create(Resources.class);
+    protected WebDriver driver;
+
 
     @Пусть("пользователь заходит на сайт и переходит на вкладку events")
     public void entry() {
@@ -29,6 +36,7 @@ public class SampleTest extends MainPage {
                 .acceptCookie()
                 .openEvents();
         logger.info("Выполнен переход на вкладуку events ");
+
     }
 
     @И("на странице отображаются карточки предстоящих мероприятий")
@@ -36,6 +44,7 @@ public class SampleTest extends MainPage {
         mainPage
                 .clickUpcomingEvents();
         logger.info("натажа кнопка предстоящих мероприятий");
+
     }
 
     @Тогда("количество карточек равно счетчику на кнопке Upcoming Events")
@@ -58,6 +67,8 @@ public class SampleTest extends MainPage {
         mainPage
                 .clickPastEventsButton();
         logger.info("натажа кнопка прошедших мероприятий");
+
+
     }
 
 
@@ -81,8 +92,9 @@ public class SampleTest extends MainPage {
         eventsPage.checkInformationOfRegistration();//проверка, что графа 'Watch recording' присутствует
         String actualLink = checkInformationOfRegistration();
         String expectedLink = "Watch recording";
-        Assert.assertEquals(actualLink,expectedLink);
+        Assert.assertEquals(actualLink, expectedLink);
         logger.info("выполнена проверка наличия записи мероприятия в карточке о мероприятии");
+
 
     }
 
