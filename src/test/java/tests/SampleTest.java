@@ -99,7 +99,7 @@ public class SampleTest extends MainPage {
         // если дата одна - она должна быть больше или рана текущей дате
         // если указан диапазон дат - вторая дата должна быть меньше или равна текущей дате
 
-        dateString = eventsPage.getCardDateFromPage();//получение даты проведения первого предстоящего мероприятия
+        dateString = eventsPage.getCardDateFromPage();
         dateCard = eventsPage.getDateFromString(dateString);
         softAssertions.assertThat(dateCard.getDate()).isGreaterThanOrEqualTo(dateNow.getDate());
         logger.info("выполнена проверка даты предстоящего мероприятя");
@@ -128,17 +128,22 @@ public class SampleTest extends MainPage {
     }
 
     @И("выполнена проверка количества карточек равное счетчику на кнопке Past Events")
-    public void checkCount() {
+    public void checkingCardsFromPastEventsInCanada() {
         Assertions.assertEquals(mainPage.getPastEventsInCanadaCount(),
-                        String.valueOf(mainPage.getEventsCardsInCanadaCount()));
-        logger.info("выполнена проверка количества карточек равное счетчику на кнопке Past Events");
+                        mainPage.getEventsCardsInCanadaCount());
+        logger.info("количество карточек прошедшие мероприятия в Канаде  равно счетчику на кнопке Past Events");
     }
 
-
     @И("выполнена проверка даты проведеного мероприятия в Канаде")
-    public void checkData() {
-        mainPage
-                .checkDataPastEventsInCanada();
+    public void checkingDataFromPastEventsInCanada() {
+
+        String dateEventsInCanadaString;
+        Date dateCardEventsInCanada;
+        Date dateNow = new Date();
+        softAssertions = new SoftAssertions();
+        dateEventsInCanadaString = eventsPage.getCardDateEventsInCanadaFromPage();//получение даты проведения первого предстоящего мероприятия
+        dateCardEventsInCanada = eventsPage.getDateEventsInCanadaFromString(dateEventsInCanadaString);
+        softAssertions.assertThat(dateCardEventsInCanada.getTime()).isLessThan(dateNow.getTime());
         logger.info("выполнена проверка даты проведеного мероприятия в Канаде");
     }
 

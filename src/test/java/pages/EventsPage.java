@@ -9,7 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 
 public class EventsPage extends BasePage {
@@ -22,6 +23,7 @@ public class EventsPage extends BasePage {
     private final SelenideElement dateOfTheEvent = $("section#home > div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > span");
     private final SelenideElement recordingOfEvent = $("section#home > div > div:nth-of-type(2) > div > div > div > div:nth-of-type(2) > div > button");
     private final SelenideElement eventCardsDate = $("div#app > div > main > section:nth-of-type(3) > div > div > div:nth-of-type(2) > div > div > div > div > div > a > div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div > p > span");
+    private final SelenideElement eventCardsDateInCanada = $("div#app > div > main > section:nth-of-type(3) > div > div > div:nth-of-type(2) > div > div > div > div > div > a > div > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div > p > span");
 
     @Step("получение количества предстоящих мероприятий")
     public String getUpcomingEventsCount() {
@@ -69,9 +71,9 @@ public class EventsPage extends BasePage {
         return eventCardsDate.getText();
     }
 
-   @Step("преобразование даты выбранного предстоящео мероприятия")
-    public Date getDateFromString(String dateString){
-         Date date = null;
+    @Step("преобразование даты выбранного предстоящео мероприятия")
+    public Date getDateFromString(String dateString) {
+        Date date = null;
         // Если указан диапазон дат, то выбираем вторую дату, которую потом будем сравнивать
         if (dateString.contains("-")) {
             dateString = dateString.split("-")[1];
@@ -82,9 +84,30 @@ public class EventsPage extends BasePage {
             logger.info(ex.getMessage());
         }
 
-       return date;
-   }
+        return date;
+    }
 
+    @Step("получение даты проведения первого предстоящего мероприятия в Канаде")
+
+    public String getCardDateEventsInCanadaFromPage() {
+        return eventCardsDateInCanada.getText();
+    }
+
+    @Step("преобразование даты выбранного предстоящео мероприятия в Канаде")
+    public Date getDateEventsInCanadaFromString(String dateEventsInCanadaString) {
+        Date dataCanada = null;
+      //Если указан диапазон дат, то выбираем вторую дату, которую потом будем сравнивать
+        if (dateEventsInCanadaString.contains("-")) {
+            dateEventsInCanadaString = dateEventsInCanadaString.split("-")[1];
+        }
+        try {
+            dataCanada = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).parse(dateEventsInCanadaString);
+        } catch (ParseException ex) {
+            logger.info(ex.getMessage());
+        }
+
+        return dataCanada;
+    }
 }
 
 
