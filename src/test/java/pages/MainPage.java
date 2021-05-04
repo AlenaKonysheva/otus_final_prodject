@@ -11,6 +11,7 @@ public class MainPage extends EventsPage {
     private final SelenideElement eventsLink = $("div#app > header > div > div > ul > li:nth-of-type(2) > a");
     private final SelenideElement acceptCookiesButton = $("button#onetrust-accept-btn-handler");
     private final SelenideElement pastEventsButton = $("div#app > div > main > section:nth-of-type(3) > div > div > div > ul > li:nth-of-type(2) > a > span");
+    private final SelenideElement upComingEventsButton =$("div#app > div > main > section:nth-of-type(3) > div > div > div > ul > li > a > span");
 
     @Step("согласие с куками")
     public MainPage acceptCookie() {
@@ -30,7 +31,7 @@ public class MainPage extends EventsPage {
 
     @Step("выбор будущих мероприятий")
     public MainPage clickUpcomingEvents() {
-        eventsLink.click();
+        upComingEventsButton.click();
         return this;
     }
 

@@ -16,6 +16,7 @@ import pages.EventsPage;
 import pages.MainPage;
 import org.junit.jupiter.api.Assertions;
 
+import java.util.Date;
 
 
 @Epic("Тесты на страницу мероприятий сайта epam.com")
@@ -24,8 +25,6 @@ public class SampleTest extends MainPage {
     private MainPage mainPage = new MainPage();
     private EventsPage eventsPage = new EventsPage();
     public static Resources cfg = ConfigFactory.create(Resources.class);
-    protected WebDriver driver;
-
 
     @Пусть("пользователь заходит на сайт и переходит на вкладку events")
     public void entry() {
@@ -41,7 +40,7 @@ public class SampleTest extends MainPage {
     public void displayOfUpcomingEvents() {
         mainPage
                 .clickUpcomingEvents();
-        logger.info("натажа кнопка предстоящих мероприятий");
+        logger.info("нажата кнопка предстоящих мероприятий");
 
     }
 
@@ -51,7 +50,6 @@ public class SampleTest extends MainPage {
                 String.valueOf(eventsPage.getEventsCardsCount()));
         logger.info("Выполнена проверка количества карточек, оно равно счетчику на кнопке");
     }
-
 
     @Когда("пользователь нажимает на Past Events")
     public void clickPastEvents() {
@@ -65,10 +63,7 @@ public class SampleTest extends MainPage {
         mainPage
                 .clickPastEventsButton();
         logger.info("натажа кнопка прошедших мероприятий");
-
-
     }
-
 
     @И("выполнена проверка информация о мероприятии в карточке")
     public void checkInformationCard() {
@@ -93,6 +88,21 @@ public class SampleTest extends MainPage {
         Assert.assertEquals(actualLink, expectedLink);
         logger.info("выполнена проверка наличия записи мероприятия в карточке о мероприятии");
 
+
+    }
+
+    @И("выполнена проверка даты проведенных мероприятий")
+    public void checkDataEvents() {
+        String dateString;
+        Date dateCard;
+        Date dateNow = new Date();
+
+        // если дата одна - она должна быть больше или рана текущей дате
+        // если указан диапазон дат - вторая дата должна быть меньше или равна текущей дате
+
+        dateString = eventsPage.getCardDateFromPage();//получение даты проведения первого предстоящего мероприятия
+        dateCard = eventsPage.getDateFromString(dateString);
+        softAssertions.assertThat(dateCard.getDate()).isGreaterThanOrEqualTo(dateNow.getDate());
 
     }
 
