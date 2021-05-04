@@ -9,6 +9,7 @@ import io.cucumber.java.ru.Пусть;
 import io.cucumber.java.ru.Тогда;
 import io.qameta.allure.Epic;
 import org.aeonbits.owner.ConfigFactory;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.openqa.selenium.WebDriver;
@@ -25,6 +26,7 @@ public class SampleTest extends MainPage {
     private MainPage mainPage = new MainPage();
     private EventsPage eventsPage = new EventsPage();
     public static Resources cfg = ConfigFactory.create(Resources.class);
+    protected SoftAssertions softAssertions;
 
     @Пусть("пользователь заходит на сайт и переходит на вкладку events")
     public void entry() {
@@ -90,19 +92,19 @@ public class SampleTest extends MainPage {
 
     }
 
-    @И("выполнена проверка даты проведенных мероприятий")
+    @И("выполнена проверка даты предстоящего мероприятия")
     public void checkDataEvents() {
         String dateString;
         Date dateCard;
         Date dateNow = new Date();
-
+        softAssertions = new SoftAssertions();
         // если дата одна - она должна быть больше или рана текущей дате
         // если указан диапазон дат - вторая дата должна быть меньше или равна текущей дате
 
         dateString = eventsPage.getCardDateFromPage();//получение даты проведения первого предстоящего мероприятия
         dateCard = eventsPage.getDateFromString(dateString);
         softAssertions.assertThat(dateCard.getDate()).isGreaterThanOrEqualTo(dateNow.getDate());
-
+        logger.info("выполнена проверка даты предстоящего мероприятя");
     }
 
     @И("пользователь нажимает на Location в блоке фильтров")
@@ -119,13 +121,13 @@ public class SampleTest extends MainPage {
         logger.info("выбран чек-бокс Canada в блоке фильтров");
     }
 
-  /*  @Тогда("на странице отображаются карточки прошедших мероприятий")
-    public void displayOfPastEventsInCanada() {
-        mainPage
-                .selectionOfTheFirstEventCardInCanada();
-        logger.info("");
-    }
-*/
+    /*  @Тогда("на странице отображаются карточки прошедших мероприятий")
+      public void displayOfPastEventsInCanada() {
+          mainPage
+                  .selectionOfTheFirstEventCardInCanada();
+          logger.info("");
+      }
+  */
     @И("выполнена проверка количества карточек равное счетчику на кнопке Past Events")
     public void checkCount() {
         mainPage
