@@ -12,7 +12,6 @@ import org.aeonbits.owner.ConfigFactory;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
-import org.openqa.selenium.WebDriver;
 import pages.EventsPage;
 import pages.MainPage;
 import org.junit.jupiter.api.Assertions;
@@ -110,6 +109,7 @@ public class SampleTest extends MainPage {
         mainPage
                 .clickLocationButton();
         logger.info("нажата кнопка Location в блоке фильтров");
+
     }
 
     @И("выбирает Canada в выпадающем списке")
@@ -129,7 +129,7 @@ public class SampleTest extends MainPage {
     @И("выполнена проверка количества карточек равное счетчику на кнопке Past Events")
     public void checkingCardsFromPastEventsInCanada() {
         Assertions.assertEquals(mainPage.getPastEventsInCanadaCount(),
-                        mainPage.getEventsCardsInCanadaCount());
+                mainPage.getEventsCardsInCanadaCount());
         logger.info("количество карточек прошедшие мероприятия в Канаде  равно счетчику на кнопке Past Events");
     }
 
@@ -146,5 +146,27 @@ public class SampleTest extends MainPage {
         logger.info("выполнена проверка даты проведеного мероприятия в Канаде");
     }
 
+    @И("пользователь нажимает на More Filters")
+    public void clickMoreFilter(){
+        mainPage
+                .moreFilter();
+        logger.info("нажата кнопка More Filters");
+    }
+
+    @Когда("пользователь использует фильтры")
+    public void filter(){
+        mainPage
+                .clickCategory()
+                .chooseTesting()
+                .clickLocationCategory()
+                .chooseBelarus()
+                .clickLanguage()
+                .chooseEnglish();
+        logger.info("фильтры применины");
+    }
+    @Тогда("на странице отображаются карточки соответствующие правилам выбранных фильтров")
+    public void checkSelectedEvents(){
+
+    }
 
 }
