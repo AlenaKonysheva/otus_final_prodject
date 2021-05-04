@@ -62,7 +62,7 @@ public class SampleTest extends MainPage {
 
     @Тогда("на странице отображаются карточки прошедших мероприятий")
     public void displayOfPastEvents() {
-        //mainPage.clickPastEventsButton();
+        mainPage.clickPastEventsButton();
         logger.info("нажата кнопка прошедших мероприятий");
     }
 
@@ -88,8 +88,6 @@ public class SampleTest extends MainPage {
         String expectedLink = "Watch recording";
         Assert.assertEquals(actualLink, expectedLink);
         logger.info("выполнена проверка наличия записи мероприятия в карточке о мероприятии");
-
-
     }
 
     @И("выполнена проверка даты предстоящего мероприятия")
@@ -121,18 +119,19 @@ public class SampleTest extends MainPage {
         logger.info("выбран чек-бокс Canada в блоке фильтров");
     }
 
-    /*  @Тогда("на странице отображаются карточки прошедших мероприятий")
-      public void displayOfPastEventsInCanada() {
-          mainPage
-                  .selectionOfTheFirstEventCardInCanada();
-          logger.info("");
-      }
-  */
+    @Тогда("на странице отображаются карточки прошедших мероприятий в Канаде")
+    public void displayOfPastEventsInCanada() {
+        mainPage
+                .selectionOfTheFirstEventCardInCanada();
+
+        logger.info("на странице присутсвуют прошедшие мероприятия в Канаде");
+    }
+
     @И("выполнена проверка количества карточек равное счетчику на кнопке Past Events")
     public void checkCount() {
-        mainPage
-                .checkCountPastEventsInCanada();
-        logger.info("");
+        Assertions.assertEquals(mainPage.getPastEventsInCanadaCount(),
+                        String.valueOf(mainPage.getEventsCardsInCanadaCount()));
+        logger.info("выполнена проверка количества карточек равное счетчику на кнопке Past Events");
     }
 
 
@@ -140,7 +139,7 @@ public class SampleTest extends MainPage {
     public void checkData() {
         mainPage
                 .checkDataPastEventsInCanada();
-        logger.info("");
+        logger.info("выполнена проверка даты проведеного мероприятия в Канаде");
     }
 
 
