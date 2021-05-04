@@ -20,6 +20,7 @@ public class MainPage extends EventsPage {
     private final SelenideElement eventInCanadaLink = $("div#app > div > main > section:nth-of-type(3) > div > div > div:nth-of-type(2) > div > div > div > div > div > a > div");
     private final SelenideElement pastEventsInCanadaCount = $x("//span[contains(text(), 'Past')]/following-sibling::span[contains(@class, 'evnt-tab-counter')]");
     private final ElementsCollection eventsCardsInCanadaCount = $$("div#app > div > main > section:nth-of-type(3) > div > div > div:nth-of-type(2) > div > div > div");
+    private static final SelenideElement loader = $("div.evnt-global-loader");
 
     @Step("согласие с куками")
     public MainPage acceptCookie() {
@@ -67,6 +68,17 @@ public class MainPage extends EventsPage {
         return this;
     }
 
+    @Step("ожидание прогрузки страницы мероприятий в Канаде")
+    public void waitLoadCard() {
+        try {
+            loader
+                    .shouldBe(Condition.appear)
+                    .shouldBe(Condition.disappear);
+        } catch (Exception ex) {
+        }
+
+
+    }
 
     @Step("получение количества прошедших мероприятий в Канаде")
     public int getPastEventsInCanadaCount() {

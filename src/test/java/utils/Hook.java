@@ -10,18 +10,12 @@ import pages.EventsPage;
 import pages.MainPage;
 
 public class Hook {
-    protected SoftAssertions softAssertions;
-    protected MainPage mainPage;
-    protected EventsPage eventsPage;
+
 
     @BeforeEach
     public void beforeTest() {
         Selenide.clearBrowserCookies();
         Selenide.open(Configuration.baseUrl);
-
-        softAssertions = new SoftAssertions();
-        mainPage = new MainPage();
-        eventsPage = new EventsPage();
     }
 
     @BeforeAll
