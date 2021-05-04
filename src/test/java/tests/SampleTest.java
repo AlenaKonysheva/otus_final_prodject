@@ -60,9 +60,8 @@ public class SampleTest extends MainPage {
 
     @Тогда("на странице отображаются карточки прошедших мероприятий")
     public void displayOfPastEvents() {
-        mainPage
-                .clickPastEventsButton();
-        logger.info("натажа кнопка прошедших мероприятий");
+        //mainPage.clickPastEventsButton();
+        logger.info("нажата кнопка прошедших мероприятий");
     }
 
     @И("выполнена проверка информация о мероприятии в карточке")
@@ -104,6 +103,42 @@ public class SampleTest extends MainPage {
         dateCard = eventsPage.getDateFromString(dateString);
         softAssertions.assertThat(dateCard.getDate()).isGreaterThanOrEqualTo(dateNow.getDate());
 
+    }
+
+    @И("пользователь нажимает на Location в блоке фильтров")
+    public void clickLocation() {
+        mainPage
+                .clickLocationButton();
+        logger.info("нажата кнопка Location в блоке фильтров");
+    }
+
+    @И("выбирает Canada в выпадающем списке")
+    public void chooseCanada() {
+        mainPage
+                .clickChooseCanada();
+        logger.info("выбран чек-бокс Canada в блоке фильтров");
+    }
+
+  /*  @Тогда("на странице отображаются карточки прошедших мероприятий")
+    public void displayOfPastEventsInCanada() {
+        mainPage
+                .selectionOfTheFirstEventCardInCanada();
+        logger.info("");
+    }
+*/
+    @И("выполнена проверка количества карточек равное счетчику на кнопке Past Events")
+    public void checkCount() {
+        mainPage
+                .checkCountPastEventsInCanada();
+        logger.info("");
+    }
+
+
+    @И("выполнена проверка даты проведеного мероприятия в Канаде")
+    public void checkData() {
+        mainPage
+                .checkDataPastEventsInCanada();
+        logger.info("");
     }
 
 

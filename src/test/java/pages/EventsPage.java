@@ -69,7 +69,7 @@ public class EventsPage extends BasePage {
         return eventCardsDate.getText();
     }
 
-   @Step("")
+   @Step("преобразование даты выбранного предстоящео мероприятия")
     public Date getDateFromString(String dateString){
          Date date = null;
         // Если указан диапазон дат, то выбираем вторую дату, которую потом будем сравнивать
