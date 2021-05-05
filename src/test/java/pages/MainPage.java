@@ -3,12 +3,9 @@ package pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.Selenide;
-import io.cucumber.java.it.Ma;
 import io.qameta.allure.Step;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -200,7 +197,7 @@ public class MainPage extends EventsPage {
         selectionOfTheFirstCardOfTheEventLocator.click();
         return this;
     }
-    @Step("")
+    @Step("ожидание прогрузки отфильтрованных курсов")
     public MainPage waitLoadFilterCard(){
         try {
             loaderCardFilter

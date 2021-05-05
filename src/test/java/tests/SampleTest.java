@@ -15,6 +15,7 @@ import org.junit.jupiter.api.DisplayName;
 import pages.EventsPage;
 import pages.MainPage;
 import org.junit.jupiter.api.Assertions;
+import utils.TestExecutionWatcher;
 
 import java.util.Date;
 
@@ -29,24 +30,33 @@ public class SampleTest extends MainPage {
     private EventsPage eventsPage = new EventsPage();
     public static Resources cfg = ConfigFactory.create(Resources.class);
     protected SoftAssertions softAssertions;
+
     private final String category = "QA";
     private final String location = "Belarus";
     private final String language = "ENGLISH";
     private final String nameReport = " QA ";
-    @Пусть("пользователь заходит на сайт и переходит на вкладку events")
+
+
+
+    @Пусть("пользователь заходит на сайт")
     public void entry() {
         Selenide.open(cfg.urlEpam());
+    }
+
+    @И("переходит на вкладку events")
+    public void goToTheEventTab(){
         mainPage
                 .acceptCookie()
                 .openEvents();
+        TestExecutionWatcher.takeScreenshot();
         logger.info("выполнен переход на вкладуку events ");
-
     }
 
     @И("на странице отображаются карточки предстоящих мероприятий")
     public void displayOfUpcomingEvents() {
         mainPage
                 .clickUpcomingEvents();
+        TestExecutionWatcher.takeScreenshot();
         logger.info("нажата кнопка предстоящих мероприятий");
 
     }
@@ -55,19 +65,22 @@ public class SampleTest extends MainPage {
     public void assertUpcomingEvents() {
         Assertions.assertEquals(eventsPage.getUpcomingEventsCount(),
                 String.valueOf(eventsPage.getEventsCardsCount()));
-        logger.info("Выполнена проверка количества карточек, оно равно счетчику на кнопке");
+        logger.info("выполнена проверка количества карточек, оно равно счетчику на кнопке");
+
     }
 
     @Когда("пользователь нажимает на Past Events")
     public void clickPastEvents() {
         mainPage
                 .clickPastEventsButton();
+        TestExecutionWatcher.takeScreenshot();
         logger.info("выбраны прошедшие мероприятия");
     }
 
     @Тогда("на странице отображаются карточки прошедших мероприятий")
     public void displayOfPastEvents() {
         mainPage.clickPastEventsButton();
+        TestExecutionWatcher.takeScreenshot();
         logger.info("нажата кнопка прошедших мероприятий");
     }
 
@@ -93,6 +106,7 @@ public class SampleTest extends MainPage {
         String expectedLink = "Watch recording";
         Assert.assertEquals(actualLink, expectedLink);
         logger.info("выполнена проверка наличия записи мероприятия в карточке о мероприятии");
+
     }
 
     @И("выполнена проверка даты предстоящего мероприятия")
@@ -108,12 +122,14 @@ public class SampleTest extends MainPage {
         dateCard = eventsPage.getDateFromString(dateString);
         softAssertions.assertThat(dateCard.getDate()).isGreaterThanOrEqualTo(dateNow.getDate());
         logger.info("выполнена проверка даты предстоящего мероприятя");
+
     }
 
     @И("пользователь нажимает на Location в блоке фильтров")
     public void clickLocation() {
         mainPage
                 .clickLocationButton();
+        TestExecutionWatcher.takeScreenshot();
         logger.info("нажата кнопка Location в блоке фильтров");
 
     }
@@ -122,6 +138,7 @@ public class SampleTest extends MainPage {
     public void chooseCanada() {
         mainPage
                 .clickChooseCanada();
+        TestExecutionWatcher.takeScreenshot();
         logger.info("выбран чек-бокс Canada в блоке фильтров");
     }
 
@@ -129,6 +146,7 @@ public class SampleTest extends MainPage {
     public void displayOfPastEventsInCanada() {
         mainPage.selectionOfTheFirstEventCardInCanada();
         mainPage.waitLoadCard();
+        TestExecutionWatcher.takeScreenshot();
         logger.info("на странице присутсвуют прошедшие мероприятия в Канаде");
     }
 
@@ -150,14 +168,15 @@ public class SampleTest extends MainPage {
         dateCardEventsInCanada = eventsPage.getDateEventsInCanadaFromString(dateEventsInCanadaString);
         softAssertions.assertThat(dateCardEventsInCanada.getTime()).isLessThan(dateNow.getTime());
         logger.info("выполнена проверка даты проведеного мероприятия в Канаде");
+
     }
 
-    @И("пользователь заходит на сайт и переходит на вкладку video")
+    @И("переходит на вкладку video")
     public void entryVideoTab() {
-        Selenide.open(cfg.urlEpam());
         mainPage
                 .acceptCookie()
                 .openVideoTab();
+        TestExecutionWatcher.takeScreenshot();
         logger.info("Выполнен переход на вкладуку events ");
     }
 
@@ -165,6 +184,7 @@ public class SampleTest extends MainPage {
     public void clickMoreFilter() {
         mainPage
                 .moreFilter();
+        TestExecutionWatcher.takeScreenshot();
         logger.info("нажата кнопка More Filters");
     }
 
@@ -174,16 +194,18 @@ public class SampleTest extends MainPage {
                 .clickCategory()
                 .chooseTesting();
         logger.info("фильтр категории применен");
+        TestExecutionWatcher.takeScreenshot();
         mainPage
                 .clickLocationCategory()
                 .chooseBelarus();
         logger.info("фильтр локации применен");
+        TestExecutionWatcher.takeScreenshot();
         mainPage
                 .clickLanguage()
                 .chooseEnglish()
                 .clickLanguage();
         logger.info("фильтр языка применен");
-
+        TestExecutionWatcher.takeScreenshot();
     }
 
     @Тогда("на странице отображаются карточки соответствующие правилам выбранных фильтров")
@@ -191,15 +213,16 @@ public class SampleTest extends MainPage {
         mainPage
                 .closeButton()
                 .clickOnTheFirstSelectedCard();
-
+        TestExecutionWatcher.takeScreenshot();
         assertEquals(language, mainPage.getLanguageText());
         logger.info("проверка языка карточки мероприятия завершена");
-
+        TestExecutionWatcher.takeScreenshot();
         assertTrue(mainPage.getLocation().contains(location));
         logger.info("проверка места проведения мероприятия завершена");
-
+        TestExecutionWatcher.takeScreenshot();
         assertTrue(mainPage.getCategory().contains(category));
         logger.info("проверка категории мероприятия завершена");
+
     }
 
     @Когда("пользователь вводит ключевое слово QA в поле поиска")
@@ -207,6 +230,7 @@ public class SampleTest extends MainPage {
         mainPage
                 .searchForAnInputString()
                 .textQAInput();
+        TestExecutionWatcher.takeScreenshot();
         logger.info("в поле поиска введено QA");
 
     }
@@ -216,8 +240,14 @@ public class SampleTest extends MainPage {
         mainPage
                 .waitLoadFilterCard()
                 .selectionOfTheFirstCardOfTheEvent();
+        TestExecutionWatcher.takeScreenshot();
         logger.info("для проверки выбрана первая карточка доклада");
           assertTrue(mainPage.checkingTheTitleOfTheReport().contains(nameReport));
         logger.info("выполнена проверка: название доклада содержит текст QA");
+
+    }
+    @И("сценарий завершился")
+    public void exit(){
+        Selenide.closeWebDriver();
     }
 }

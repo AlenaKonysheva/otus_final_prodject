@@ -2,9 +2,12 @@ package config;
 
 import com.codeborne.selenide.Browsers;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import utils.Driver;
 
 public class Config {
     private static String browserName;
@@ -29,8 +32,9 @@ public class Config {
             com.codeborne.selenide.Configuration.browserVersion = "88.0";
         }
 
-
-        com.codeborne.selenide.Configuration.startMaximized = true;
+        WebDriver driver = Driver.getDriver(browserName);
+        WebDriverRunner.setWebDriver(driver);
+        driver.manage().window().maximize();
 
         Configuration.baseUrl = resources.urlEpam();
     }
