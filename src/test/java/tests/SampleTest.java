@@ -32,7 +32,7 @@ public class SampleTest extends MainPage {
     private final String category = "QA";
     private final String location = "Belarus";
     private final String language = "ENGLISH";
-    private final String nameReport = "QA";
+    private final String nameReport = " QA ";
     @Пусть("пользователь заходит на сайт и переходит на вкладку events")
     public void entry() {
         Selenide.open(cfg.urlEpam());
@@ -214,7 +214,9 @@ public class SampleTest extends MainPage {
     @Тогда("на странице отображаются доклады, содержащие в названии ключевое слово поиска")
     public void checkingTheTitleOfReports(){
         mainPage
+                .waitLoadFilterCard()
                 .selectionOfTheFirstCardOfTheEvent();
+        logger.info("для проверки выбрана первая карточка доклада");
           assertTrue(mainPage.checkingTheTitleOfTheReport().contains(nameReport));
         logger.info("выполнена проверка: название доклада содержит текст QA");
     }

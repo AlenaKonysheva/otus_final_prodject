@@ -40,6 +40,7 @@ public class MainPage extends EventsPage {
     private final SelenideElement searchLine = $("div#app > div > main > section:nth-of-type(2) > div > div > div > div > div > div > div > input");
     private final SelenideElement selectionOfTheFirstCardOfTheEventLocator=$("div#app > div > main > section:nth-of-type(3) > div > div > div > div:nth-of-type(2) > div > div > a > div");
     private final SelenideElement talkTitleText=$("div#app > div > main > section > div > div:nth-of-type(2) > div > div > div > div > h1");
+    private static final SelenideElement loaderCardFilter=$("div#app > div > main > section:nth-of-type(3) > div > div:nth-of-type(2)");
 
     @Step("согласие с куками")
     public MainPage acceptCookie() {
@@ -197,6 +198,16 @@ public class MainPage extends EventsPage {
     @Step("выбор первой карточки для проверки названия доклада")
     public MainPage selectionOfTheFirstCardOfTheEvent(){
         selectionOfTheFirstCardOfTheEventLocator.click();
+        return this;
+    }
+    @Step("")
+    public MainPage waitLoadFilterCard(){
+        try {
+            loaderCardFilter
+                    .shouldBe(Condition.appear)
+                    .shouldBe(Condition.disappear);
+        } catch (Exception ex) {
+        }
         return this;
     }
 
