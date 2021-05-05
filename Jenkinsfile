@@ -6,7 +6,7 @@ pipeline {
             LANGUAGE = 'en_US.UTF-8'
         }
     tools {
-        maven 'maven'
+        maven 'MAVEN_HOME'
     }
 
     triggers {
