@@ -18,6 +18,9 @@ import org.junit.jupiter.api.Assertions;
 
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 
 @Epic("Тесты на страницу мероприятий сайта epam.com")
 @DisplayName("Тесты на страницу мероприятий сайта epam.com")
@@ -26,6 +29,9 @@ public class SampleTest extends MainPage {
     private EventsPage eventsPage = new EventsPage();
     public static Resources cfg = ConfigFactory.create(Resources.class);
     protected SoftAssertions softAssertions;
+    private final String category = "QA";
+    private final String location = "Belarus";
+    private final String language = "ENGLISH";
 
     @Пусть("пользователь заходит на сайт и переходит на вкладку events")
     public void entry() {
@@ -33,7 +39,7 @@ public class SampleTest extends MainPage {
         mainPage
                 .acceptCookie()
                 .openEvents();
-        logger.info("Выполнен переход на вкладуку events ");
+        logger.info("выполнен переход на вкладуку events ");
 
     }
 
@@ -146,27 +152,54 @@ public class SampleTest extends MainPage {
         logger.info("выполнена проверка даты проведеного мероприятия в Канаде");
     }
 
+    @И("пользователь заходит на сайт и переходит на вкладку video")
+    public void entryVideoTab() {
+        Selenide.open(cfg.urlEpam());
+        mainPage
+                .acceptCookie()
+                .openVideoTab();
+        logger.info("Выполнен переход на вкладуку events ");
+    }
+
     @И("пользователь нажимает на More Filters")
-    public void clickMoreFilter(){
+    public void clickMoreFilter() {
         mainPage
                 .moreFilter();
         logger.info("нажата кнопка More Filters");
     }
 
     @Когда("пользователь использует фильтры")
-    public void filter(){
+    public void filter() {
         mainPage
                 .clickCategory()
-                .chooseTesting()
+                .chooseTesting();
+        logger.info("фильтр категории применен");
+        mainPage
                 .clickLocationCategory()
-                .chooseBelarus()
+                .chooseBelarus();
+        logger.info("фильтр локации применен");
+        mainPage
                 .clickLanguage()
-                .chooseEnglish();
-        logger.info("фильтры применины");
-    }
-    @Тогда("на странице отображаются карточки соответствующие правилам выбранных фильтров")
-    public void checkSelectedEvents(){
+                .chooseEnglish()
+                .clickLanguage();
+        logger.info("фильтр языка применен");
 
+    }
+
+    @Тогда("на странице отображаются карточки соответствующие правилам выбранных фильтров")
+    public void checkSelectedEvents() {
+        mainPage
+                .closeButton()
+                .clickOnTheFirstSelectedCard();
+
+        assertEquals(language, mainPage.getLanguageText());
+        logger.info("проверка языка карточки мероприятия завершена");
+
+        assertTrue(mainPage.getLocation().contains(location));
+        logger.info("проверка места проведения мероприятия завершена");
+
+        assertTrue(mainPage.getCategory().contains(category));
+        logger.info("проверка категории мероприятия завершена");
     }
 
 }

@@ -88,7 +88,6 @@ public class EventsPage extends BasePage {
     }
 
     @Step("получение даты проведения первого предстоящего мероприятия в Канаде")
-
     public String getCardDateEventsInCanadaFromPage() {
         return eventCardsDateInCanada.getText();
     }

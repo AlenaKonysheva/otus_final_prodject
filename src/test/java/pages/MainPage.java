@@ -6,6 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -21,14 +22,19 @@ public class MainPage extends EventsPage {
     private final SelenideElement pastEventsInCanadaCount = $x("//span[contains(text(), 'Past')]/following-sibling::span[contains(@class, 'evnt-tab-counter')]");
     private final ElementsCollection eventsCardsInCanadaCount = $$("div#app > div > main > section:nth-of-type(3) > div > div > div:nth-of-type(2) > div > div > div");
     private static final SelenideElement loader = $("div.evnt-global-loader");
+    private final SelenideElement videoTabButton=$("div#app > header > div > div > ul > li:nth-of-type(3) > a");
     private final SelenideElement moreFilterButton = $("div#app > div > main > section:nth-of-type(2) > div > div > div > div > div > div:nth-of-type(4) > div");
     private final SelenideElement categoryButton=$("div#filter_category");
     private final SelenideElement testingButton=$("div#app > div > main > section:nth-of-type(2) > div > div > div > div > div > div:nth-of-type(2) > div > div:nth-of-type(2) > div:nth-of-type(2) > div > div:nth-of-type(16) > div > div:nth-of-type(2) > label");
     private final SelenideElement locationCategoryButton=$("div#filter_location");
-    private final SelenideElement belarusButton=$("div#app > div > main > section:nth-of-type(2) > div > div > div > div > div > div:nth-of-type(3) > div > div:nth-of-type(2) > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(2) > label");
+    private final SelenideElement belarusButton=$("div#collapseMoreFilters > div > div > div > div > div:nth-of-type(2) > div:nth-of-type(2) > div > div:nth-of-type(2) > div > div:nth-of-type(2) > label");
     private final SelenideElement languageCategoryButton=$("div#filter_language");
-    private final SelenideElement englishButton=$("div#collapseMoreFilters > div > div > div:nth-of-type(5) > div > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div > div > label");
-
+    private final SelenideElement englishButton=$("div#collapseMoreFilters > div > div > div:nth-of-type(3) > div > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div > label");
+    private final SelenideElement theFirstSelectedCard=$("div#app > div > main > section:nth-of-type(3) > div > div > div > div:nth-of-type(2) > div > div > a > div");
+    private final SelenideElement languageText=$("div#app > div > main > section:nth-of-type(2) > div > div > div > div:nth-of-type(2) > div:nth-of-type(3)");
+    private final SelenideElement locationText=$("div#app > div > main > section:nth-of-type(2) > div > div > div > div:nth-of-type(2) > div:nth-of-type(2) > span");
+    private final SelenideElement categoryText=$("div#app > div > main > section > div > div:nth-of-type(2) > div > div > div > div > h1");
+    private final SelenideElement closeButtonX=$("div#modal-app > div > div > div > button");
 
     @Step("согласие с куками")
     public MainPage acceptCookie() {
@@ -96,6 +102,12 @@ public class MainPage extends EventsPage {
         return eventsCardsInCanadaCount.size();
     }
 
+    @Step("переход на вкладку Video")
+    public MainPage openVideoTab() {
+        videoTabButton.click();
+        return this;
+    }
+
     @Step("нажатие на More Filters")
     public MainPage moreFilter() {
         moreFilterButton.click();
@@ -107,6 +119,7 @@ public class MainPage extends EventsPage {
         categoryButton.click();
         return this;
     }
+
     @Step("выбрано Testing")
     public MainPage  chooseTesting() {
         testingButton.click();
@@ -118,7 +131,6 @@ public class MainPage extends EventsPage {
         locationCategoryButton.click();
         return this;
     }
-
 
     @Step("выбрано Belarus")
     public MainPage chooseBelarus(){
@@ -136,6 +148,35 @@ public class MainPage extends EventsPage {
     public MainPage  chooseEnglish() {
         englishButton.click();
         return this;
+    }
+
+
+    @Step("выполнено закрытие всплывающего окна")
+    public MainPage closeButton(){
+        closeButtonX.click();
+        return this;
+    }
+
+
+    @Step("выбрана первая карточка отфильтрованных мероприятий")
+    public MainPage clickOnTheFirstSelectedCard(){
+        theFirstSelectedCard.click();
+        return this;
+    }
+
+    @Step("проверка языка выбранного мероприятия")
+    public String getLanguageText() {
+        return languageText.getText();
+    }
+
+    @Step("проверка места проведения выбранного мероприятия")
+    public String getLocation() {
+        return locationText.getText();
+    }
+
+    @Step("проверка категории выбранного мероприятия")
+    public String getCategory(){
+        return categoryText.getText();
     }
 
 }

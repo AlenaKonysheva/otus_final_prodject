@@ -17,7 +17,7 @@ public class BasePage extends Hook {
         logger = LogManager.getLogger(BasePage.class);
     }
 
-    public static void takeScreenshot() {
+  /*  public static void takeScreenshot() {
         Allure.addAttachment("screenshot", new ByteArrayInputStream(Selenide.screenshot(OutputType.BYTES)));
-    }
+    }*/
 }
