@@ -32,7 +32,7 @@ public class SampleTest extends MainPage {
     private final String category = "QA";
     private final String location = "Belarus";
     private final String language = "ENGLISH";
-
+    private final String nameReport = "QA";
     @Пусть("пользователь заходит на сайт и переходит на вкладку events")
     public void entry() {
         Selenide.open(cfg.urlEpam());
@@ -202,4 +202,20 @@ public class SampleTest extends MainPage {
         logger.info("проверка категории мероприятия завершена");
     }
 
+    @Когда("пользователь вводит ключевое слово QA в поле поиска")
+    public void searchBarInput() {
+        mainPage
+                .searchForAnInputString()
+                .textQAInput();
+        logger.info("в поле поиска введено QA");
+
+    }
+
+    @Тогда("на странице отображаются доклады, содержащие в названии ключевое слово поиска")
+    public void checkingTheTitleOfReports(){
+        mainPage
+                .selectionOfTheFirstCardOfTheEvent();
+          assertTrue(mainPage.checkingTheTitleOfTheReport().contains(nameReport));
+        logger.info("выполнена проверка: название доклада содержит текст QA");
+    }
 }
