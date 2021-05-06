@@ -24,7 +24,6 @@ pipeline {
     stages {
    stage('Pull from GitHub') {
             steps {
-                slackSend(message: "Notification from Jenkins Pipeline:Job begin")
                 git ([
                     url: "${params.GIT_URL}",
                     branch: "${params.GIT_BRANCH}"
@@ -54,14 +53,12 @@ pipeline {
                       def message = "${currentBuild.currentResult}: Job ${env.JOB_NAME}, build ${env.BUILD_NUMBER}, branch ${branch}\nTest Summary - ${summary.totalCount}, Failures: ${summary.failCount}, Skipped: ${summary.skipCount}, Passed: ${summary.passCount}\nMore info at: ${env.BUILD_URL}"
                       if (currentBuild.currentResult == 'SUCCESS') {
                       step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "auslonceva@ya.ru", sendToIndividuals: true])
-                      slackSend(message: "Notification from Jenkins Pipeline: "+ message)
                       } else {
                      step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "auslonceva@ya.ru", sendToIndividuals: true])
-                      slackSend(message: "Notification from Jenkins Pipeline: "+ message)
-                      }
+                            }
 
 
-                    // Формирование отчета
+                    // Формирование отчета allure
                       allure([
                       includeProperties: false,
                       jdk: '',
@@ -70,7 +67,7 @@ pipeline {
                       results: [[path: 'target/allure-results']]
                     ])
                     println('allure report created')
-                    // Текст оповещения
+
 
                     println("message= " + message)
                   }
