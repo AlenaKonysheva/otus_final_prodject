@@ -11,9 +11,6 @@
     <properties>
         <maven.compiler.source>9</maven.compiler.source>
         <maven.compiler.target>9</maven.compiler.target>
-        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <aspectj.version>1.9.6</aspectj.version>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <allure.version>2.13.6</allure.version>
