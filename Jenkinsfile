@@ -16,6 +16,8 @@ pipeline {
     parameters {
         string(name: 'GIT_URL', defaultValue: 'https://github.com/AlenaUslontseva/otus_final_prodject', description: 'The target git url')
         string(name: 'GIT_BRANCH', defaultValue: 'master', description: 'The target git branch')
+        string(name: 'EMAIL_NOTIFICATION', defaultValue: 'auslonceva@ya.ru', description: 'default email')
+        string(name: 'REMOTE_URL', defaultValue: 'http://selenoid:4444/wd/hub', description: 'Selenoid url')
         choice(name: 'BROWSER_NAME', choices: ['chrome', 'firefox'], description: 'Pick the target browser in Selenoid')
         choice(name: 'BROWSER_VERSION', choices: ['89.0', '88.0', '78.0'], description: 'Pick the target browser version in Selenoid')
     }
@@ -69,7 +71,7 @@ pipeline {
                     ])
                     println('allure report created')
                     // Текст оповещения
-                    //def message = "${currentBuild.currentResult}: Job ${env.JOB_NAME}, build ${env.BUILD_NUMBER}, branch ${branch}\nTest Summary - ${summary.totalCount}, Failures: ${summary.failCount}, Skipped: ${summary.skipCount}, Passed: ${summary.passCount}\nMore info at: ${env.BUILD_URL}"
+                    def message = "${currentBuild.currentResult}: Job ${env.JOB_NAME}, build ${env.BUILD_NUMBER}, branch ${branch}\nTest Summary - ${summary.totalCount}, Failures: ${summary.failCount}, Skipped: ${summary.skipCount}, Passed: ${summary.passCount}\nMore info at: ${env.BUILD_URL}"
                     println("message= " + message)
                   }
 
