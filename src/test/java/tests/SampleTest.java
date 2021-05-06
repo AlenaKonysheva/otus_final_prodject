@@ -40,6 +40,7 @@ public class SampleTest extends MainPage {
 
     @Пусть("пользователь заходит на сайт")
     public void entry() {
+        Selenide.clearBrowserCookies();
         Selenide.open(cfg.urlEpam());
     }
 
@@ -145,7 +146,7 @@ public class SampleTest extends MainPage {
     @Тогда("на странице отображаются карточки прошедших мероприятий в Канаде")
     public void displayOfPastEventsInCanada() {
         mainPage.selectionOfTheFirstEventCardInCanada();
-        mainPage.waitLoadCard();
+        //mainPage.waitLoadCard();
         TestExecutionWatcher.takeScreenshot();
         logger.info("на странице присутсвуют прошедшие мероприятия в Канаде");
     }
@@ -238,7 +239,7 @@ public class SampleTest extends MainPage {
     @Тогда("на странице отображаются доклады, содержащие в названии ключевое слово поиска")
     public void checkingTheTitleOfReports(){
         mainPage
-                .waitLoadFilterCard()
+                //.waitLoadFilterCard()
                 .selectionOfTheFirstCardOfTheEvent();
         TestExecutionWatcher.takeScreenshot();
         logger.info("для проверки выбрана первая карточка доклада");
@@ -248,6 +249,7 @@ public class SampleTest extends MainPage {
     }
     @И("сценарий завершился")
     public void exit(){
+        Selenide.clearBrowserCookies();
         Selenide.closeWebDriver();
     }
 }
