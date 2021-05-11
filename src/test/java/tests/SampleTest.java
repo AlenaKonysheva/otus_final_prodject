@@ -146,7 +146,7 @@ public class SampleTest extends MainPage {
     @Тогда("на странице отображаются карточки прошедших мероприятий в Канаде")
     public void displayOfPastEventsInCanada() {
         mainPage.selectionOfTheFirstEventCardInCanada();
-        //mainPage.waitLoadCard();
+        mainPage.waitLoadCard();
         TestExecutionWatcher.takeScreenshot();
         logger.info("на странице присутсвуют прошедшие мероприятия в Канаде");
     }
